@@ -1,0 +1,35 @@
+<i class="material-icons Close-icon" [mat-dialog-close]>close</i>
+
+<h2 class="u-title">Modifier le media</h2>
+
+<form class="u-form">
+  <label for="originalTitle" class="u-label">Titre :</label>
+  <input #titleInput
+    class="u-input"
+    type="text"
+    placeholder="Titre"
+    [(ngModel)]="media.originalTitle"
+    name="originalTitle"
+    [value]="media.originalTitle"
+    (keydown.enter)="this.dialogRef.close()">
+
+  <label for="startYear" class="u-label">Année :</label>
+  <input #startYearInput
+    class="u-input"
+    type="number"
+    placeholder="Année"
+    [(ngModel)]="media.startYear"
+    name="startYear"
+    [value]="media.startYear"
+    (keydown.enter)="this.dialogRef.close()">
+
+  <label for="genres" class="u-label">Genres :</label>
+  <input #genreInput
+    class="u-input"
+    type="text"
+    placeholder="Genre"
+    [(ngModel)]="media.genres"
+    name="genres"
+    [value]="media.genres"
+    (keydown.enter)="this.dialogRef.close()">
+</form>

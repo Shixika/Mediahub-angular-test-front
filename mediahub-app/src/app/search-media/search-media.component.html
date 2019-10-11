@@ -1,0 +1,32 @@
+<h1 class="u-title">Recherche de media</h1>
+
+<form class="u-form">
+  <input #searchBox
+    class="u-input"
+    placeholder="Recherche par titre"
+    (input)="setSearchValue(searchBox.value.toLowerCase())">
+
+  <label for="sliderRange" class="u-label">Filtre par année :</label>
+  <igx-slider #sliderRange class="Slider" name="sliderRange" [type]="sliderType.RANGE" [minValue]="1800" [maxValue]="2020" [(ngModel)]="priceRange"></igx-slider>
+</form>
+
+<div class="Medias-table">
+  <div class="Table-title Medias-row">
+    <p>Titre original</p>
+    <p>Année</p>
+    <p>Genres</p>
+    <p>Modifier</p>
+  </div>
+  <ng-container *ngFor="let media of medias">
+    <div class="Medias-row" *ngIf="searchMedias(media)">
+      <div class="Medias-info">
+        <p><span class="u-sm-hide Info-label">Titre : </span>{{media.originalTitle}}</p>
+        <p><span class="u-sm-hide Info-label">Année : </span>{{media.startYear}}</p>
+        <p><span class="u-sm-hide Info-label">Genres : </span>{{media.genres}}</p>
+      </div>
+      <div>
+        <button (click)="openMediaDialog(media)"><i class="material-icons">edit</i></button>
+      </div>
+    </div>
+  </ng-container>
+</div>

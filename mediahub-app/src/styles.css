@@ -1,1 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~igniteui-angular/styles/igniteui-angular.css";
+
+/* Override global style */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', "Helvetica Neue", sans-serif;
+}
+
+/* Custom utilities */
+
+.u-button {
+  background: #fff;
+  border: none;
+  box-shadow: 1px 1px 4px 0px rgba(0,0,0,.4);
+  font-size: 17px;
+  font-weight: 600;
+  padding: 1em;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.u-form {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.u-input {
+  border: 1px solid darkgrey;
+  flex: 1;
+  font-size: 16px;
+  margin-bottom: 1em;
+  padding: .5em;
+  width: inherit;
+}
+
+.u-label {
+  padding: .5em 0;
+}
+
+.u-sm-hide {
+  display: none;
+}
+
+.u-title {
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Small devices */
+@media only screen and (max-width: 768px) {
+  .u-sm-hide {
+    display: block;
+  }
+}

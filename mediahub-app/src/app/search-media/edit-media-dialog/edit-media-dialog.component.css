@@ -1,0 +1,5 @@
+.Close-icon {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
