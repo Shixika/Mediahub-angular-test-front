@@ -1,32 +1,37 @@
-<h1 class="u-title">Recherche de media</h1>
+<header class="Media-header">
+  <h1>Recherche de media</h1>
 
-<form class="u-form">
-  <input #searchBox
-    class="u-input"
-    placeholder="Recherche par titre"
-    (input)="setSearchValue(searchBox.value.toLowerCase())">
+  <form class="Search-form">
+    <mat-form-field>
+      <input matInput type="text" id="searchMedia" name="searchValue"
+        [(ngModel)]="searchValue"
+        placeholder="Recherche de media par titre"
+        (input)="getSearch(searchValue)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 
-  <label for="sliderRange" class="u-label">Filtre par année :</label>
-  <igx-slider #sliderRange class="Slider" name="sliderRange" [type]="sliderType.RANGE" [minValue]="1800" [maxValue]="2020" [(ngModel)]="priceRange"></igx-slider>
-</form>
+    <input class="u-button" type="submit" value="Lancer ma recherche" (click)="searchMedia(searchValue)"
+      [disabled]="searchValue ? false : true">
+  </form>
+</header>
 
-<div class="Medias-table">
-  <div class="Table-title Medias-row">
+<div *ngIf="searchEmpty.length > 0" class="No-result">
+  <p>Il n'y a pas de résultat pour votre recherche de titre : '{{ searchEmpty }}'.</p>
+  <input class="u-button danger" type="submit" value="Annuler la recherche"
+    (click)="cancelSearch()">
+</div>
+
+<div class="Medias-list" *ngIf="searchEmpty.length === 0">
+  <div class="Title">
     <p>Titre original</p>
     <p>Année</p>
-    <p>Genres</p>
-    <p>Modifier</p>
+    <p>Genre</p>
   </div>
-  <ng-container *ngFor="let media of medias">
-    <div class="Medias-row" *ngIf="searchMedias(media)">
-      <div class="Medias-info">
-        <p><span class="u-sm-hide Info-label">Titre : </span>{{media.originalTitle}}</p>
-        <p><span class="u-sm-hide Info-label">Année : </span>{{media.startYear}}</p>
-        <p><span class="u-sm-hide Info-label">Genres : </span>{{media.genres}}</p>
-      </div>
-      <div>
-        <button (click)="openMediaDialog(media)"><i class="material-icons">edit</i></button>
-      </div>
+  <ng-container *ngFor="let media of mediasSearch">
+    <div class="Media" (click)="openMediaDialog(media)">
+      <p>{{ media.originalTitle }}</p>
+      <p>{{ media.startYear }}</p>
+      <p>{{ media.genres }}</p>
     </div>
   </ng-container>
 </div>

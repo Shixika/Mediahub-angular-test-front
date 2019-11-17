@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { SliderType } from "igniteui-angular";
-import { MatDialog, MatDialogConfig } from "@angular/material";
+import { MatDialog, MatDialogConfig } from '@angular/material';
+// import { SliderType } from "igniteui-angular";
 
-import { Media } from '../media';
-import { MediasService } from '../medias.service';
-import { EditMediaDialogComponent } from './edit-media-dialog/edit-media-dialog.component'
+import { Media } from '../services/media';
+import { MediasService } from '../services/medias.service';
+import { EditMediaDialogComponent } from './edit-media-dialog/edit-media-dialog.component';
 
 @Component({
   selector: 'app-search-media',
@@ -13,48 +13,58 @@ import { EditMediaDialogComponent } from './edit-media-dialog/edit-media-dialog.
 })
 export class SearchMediaComponent implements OnInit {
   medias: Media[];
-  searchValue: String = "";
-  public sliderType = SliderType;
-  public priceRange: PriceRange = new PriceRange(1800, 2020);
+  mediasSearch: Media[] = [];
+  searchEmpty = '';
+  // searchValue = '';
+  // public sliderType = SliderType;
+  // public priceRange: PriceRange = new PriceRange(1800, 2020);
 
   constructor(
     private mediasService: MediasService,
-    private dialog: MatDialog) {
+    public dialogService: MatDialog) {
+  }
+
+  openMediaDialog(selectedMedia: Media): void {
+    const dialogRef = this.dialogService.open(EditMediaDialogComponent, {
+      width: '600px',
+      data: { media: selectedMedia }
+    });
+  }
+
+  searchMedia(searchValue: string) {
+    this.mediasSearch = []; // empty the mediasSearch array
+
+    // Fill the media search array
+    this.medias.map((media, index) => {
+      const primaryTitle = media.primaryTitle.toLocaleLowerCase();
+      const originalTitle = media.originalTitle.toLocaleLowerCase();
+      searchValue = searchValue.toLocaleLowerCase();
+      if (primaryTitle.includes(searchValue) || originalTitle.includes(searchValue)) {
+        this.mediasSearch.push(media);
+      }
+    });
+
+    if (this.mediasSearch.length > 0) {
+      return this.searchEmpty = '';
+    } else {
+      return this.searchEmpty = searchValue;
+    }
+  }
+
+  getSearch(searchValue) {
+    return searchValue.length === 0 ? this.cancelSearch() : null;
+  }
+
+  cancelSearch() {
+    this.mediasSearch = this.medias;
+    this.searchEmpty = '';
   }
 
   ngOnInit(): void {
-    this.getMedias();
+    this.mediasService.getMedias()
+      .subscribe((results) => {
+        this.medias = results;
+        this.mediasSearch = results;
+      });
   }
-
-  getMedias(): void {
-    this.mediasService.getMedias().subscribe(medias => this.medias = medias);
-  }
-
-  setSearchValue(searchValue) {
-    this.searchValue = searchValue;
-  }
-
-  searchMedias(media) {
-    if ((media.originalTitle.toLowerCase().includes(this.searchValue) || media.primaryTitle.toLowerCase().includes(this.searchValue)) && (this.priceRange.lower <= media.startYear && this.priceRange.upper >= media.startYear)) {
-      return true;
-    }
-  }
-
-  openMediaDialog(media): void {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.width = '600px';
-    dialogConfig.data = {
-      media: media
-    }
-
-    this.dialog.open(EditMediaDialogComponent, dialogConfig);
-  }
-}
-
-class PriceRange {
-  constructor(
-    public lower: number,
-    public upper: number
-  ) { }
 }

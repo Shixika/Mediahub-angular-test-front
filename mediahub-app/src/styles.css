@@ -1,5 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-@import "~igniteui-angular/styles/igniteui-angular.css";
+/* @import "~igniteui-angular/styles/igniteui-angular.css"; */
 
 /* Override global style */
 
@@ -12,51 +12,26 @@ body {
   font-family: 'Open Sans', "Helvetica Neue", sans-serif;
 }
 
+h1 {
+  font-weight: 600;
+}
+
 /* Custom utilities */
 
 .u-button {
-  background: #fff;
+  background: #3f51b5;
+  color: #fff;
   border: none;
-  box-shadow: 1px 1px 4px 0px rgba(0,0,0,.4);
   font-size: 17px;
   font-weight: 600;
-  padding: 1em;
-  text-transform: uppercase;
-  width: 100%;
-}
-
-.u-form {
-  align-items: stretch;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-
-.u-input {
-  border: 1px solid darkgrey;
-  flex: 1;
-  font-size: 16px;
-  margin-bottom: 1em;
   padding: .5em;
-  width: inherit;
+  text-transform: uppercase;
 }
 
-.u-label {
-  padding: .5em 0;
+.u-button:disabled {
+  opacity: 40%;
 }
 
-.u-sm-hide {
-  display: none;
-}
-
-.u-title {
-  font-weight: 600;
-  text-align: center;
-}
-
-/* Small devices */
-@media only screen and (max-width: 768px) {
-  .u-sm-hide {
-    display: block;
-  }
+.u-button.danger {
+  background: #f44336;
 }

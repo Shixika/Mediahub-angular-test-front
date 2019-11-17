@@ -9,10 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatInputModule,
-  MatFormFieldModule,
-  MatCardModule,
-  MatTableModule,
-  MatSelectModule,
+  MatIconModule,
   MatDialogModule
 } from '@angular/material';
 import { IgxSliderModule } from 'igniteui-angular';
@@ -37,10 +34,7 @@ import { EditMediaDialogComponent } from './search-media/edit-media-dialog/edit-
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatInputModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatTableModule,
-    MatSelectModule,
+    MatIconModule,
     MatDialogModule,
     IgxSliderModule
   ],
